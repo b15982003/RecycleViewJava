@@ -15,6 +15,7 @@ import java.util.HashMap;
 public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder> {
     ArrayList<HashMap<String, String>> arrayList;
 
+    // 綁定 layout
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -22,9 +23,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         return new ViewHolder(view);
     }
 
-
-
-
+    // 寫入每筆資料
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         int avgC = Integer.parseInt(arrayList.get(position).get("Avg"));
@@ -49,14 +48,15 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
 //            Toast.makeText( Context , holder.tvAvg.getText(), Toast.LENGTH_SHORT).show();
             Log.d("Ray","be Onclick"+arrayList.get(position));
         });
-
     }
 
+    // 告訴 adapter item 數量 亦可控制顯示的筆數
     @Override
     public int getItemCount() {
         return arrayList.size();
     }
 
+    // 指定每個 item
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView top, tvId, tvSub1, tvSub2, tvAvg;
         private View mView;
@@ -72,6 +72,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         }
     }
 
+    // 從 Activity 傳進 List
     public void getArray(ArrayList<HashMap<String, String>> num) {
         arrayList = num;
     }

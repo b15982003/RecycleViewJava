@@ -25,21 +25,26 @@ public class MainActivity extends AppCompatActivity {
     boolean reflesh = false;
     Timer timer = new Timer();
     Handler handler = new Handler();
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         addList();
 
+        // 設定 recycleView layout;
         mRecucleView = findViewById(R.id.recycleview);
         mRecucleView.setLayoutManager(new LinearLayoutManager(this));
         mRecucleView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
+        // 綁定 adapter
         myListAdapter = new MyListAdapter();
         mRecucleView.setAdapter(myListAdapter);
 
+        // 更新球球
         swip = findViewById(R.id.swipRefresh);
 
+        // 刷新頁面
         swip.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -57,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         myListAdapter.getArray(arrayList);
     }
 
+    // 創建 List
     private void addList() {
         for (int i = 0; i < 2; i++) {
             HashMap<String, String> hashMap = new HashMap<>();
@@ -69,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // 增加一個 item
     private void addOne() {
         reflesh = true;
         HashMap<String, String> hashMap = new HashMap<>();
@@ -78,13 +85,14 @@ public class MainActivity extends AppCompatActivity {
         hashMap.put("Avg", String.valueOf((Integer.parseInt(hashMap.get("sub1")) + Integer.parseInt(hashMap.get("sub2"))) / 2));
 //            Log.d("Ray","value"+hashMap);
         arrayList.add(hashMap);
-
     }
 
+    // 刷新
     private void reFresh() {
         myListAdapter.notifyDataSetChanged();
     }
 
+    // 關閉
     private void close() {
         if (reflesh) {
             reflesh = false;
